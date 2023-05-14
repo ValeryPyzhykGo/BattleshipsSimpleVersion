@@ -50,20 +50,21 @@ namespace Battleships.ConsoleWrapper
 
       private char ShowPlayerCell( IPlayerBoard board, char column, int row )
       {
+         var status = board.GetStatus( column, row );
+         if ( status == CellStatus.Hit )
+         {
+            return _hitCellSymbol;
+         }
          var shipClass = board.GetShipClass( column, row );
          if ( shipClass != null )
          {
             return _messages.GetShipLetter( shipClass.Value );
          }
-         if ( board.GetStatus( column, row ) == CellStatus.Undescovered )
+         if ( status == CellStatus.Undescovered )
          {
             return _undescoveredCellSymbol;
          }
-         if ( board.GetStatus( column, row ) == CellStatus.Miss )
-         {
-            return _missCellSymbol;
-         }
-         return _hitCellSymbol;
+         return _missCellSymbol;
       }
 
       private char ShowOponentCell( IOpponentBoard board, char column, int row )
