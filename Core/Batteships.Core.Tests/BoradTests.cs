@@ -1,4 +1,5 @@
 ﻿using Battleships.Core.Board;
+using Battleships.Core.Exceptions;
 using NUnit.Framework;
 using System;
 
@@ -172,6 +173,22 @@ namespace Battleships.Core.Tests
       }
 
       [Test]
+      [TestCase( "J", 1, false )]
+      [TestCase( "C", 9, true )]
+      public void TryPlaceShip_WithShipOutsideTheField_ShouldReturnFalseAndNotPlaceShip( char column, int row, bool isVertical)
+      {
+         // Arrange
+         var ship = new Ship( ShipClass.Battleship );
+
+         // Act
+         var result = _board.TryPlaceShip( column, row, isVertical, ship );
+
+         // Assert
+         Assert.IsFalse( result );
+         Assert.AreEqual( 0, _board.LifesLeft );
+      }
+
+      [Test]
       public void TryPlaceShip_WithInvalidCoordinatesNegativeNumber_ShouldThrowArgumentOutOfRangeException()
       {
          // Arrange
@@ -224,6 +241,55 @@ namespace Battleships.Core.Tests
          Assert.IsNull( result );
          Assert.AreEqual( CellStatus.Miss, _board.GetStatus( column, row ) );
          Assert.AreEqual( 0, _board.LifesLeft );
+      }
+
+      [Test]
+      public void MakeMove_CellIsAlreadyDiscovered_ThrowsCellIsAlreadyDiscoveredException()
+      {
+         // Arrange
+         char column = 'A';
+         int row = 1;
+         _board.TryPlaceShip( column, row, false, new Ship( ShipClass.Battleship ) );
+
+         // Act & Assert
+         ( _board as IOpponentBoard ).MakeMove( column, row );
+         Assert.Throws<CellIsAlreadyDiscoveredException>( () => (_board as IOpponentBoard).MakeMove( column, row ) );
+      }
+
+      [Test]
+      public void MakeMove_CellContainsShip_ReturnsShipAndUpdatesStatus()
+      {
+         // Arrange
+         char column = 'A';
+         int row = 1;
+         var ship = new Ship( ShipClass.Battleship );
+         _board.TryPlaceShip( column, row, false, ship );
+
+         // Act
+         var result = ( _board as IOpponentBoard ).MakeMove( column, row );
+
+         // Assert
+         Assert.IsNotNull( result );
+         Assert.AreEqual( ShipClass.Battleship, result.ShipClass );
+         Assert.AreEqual( CellStatus.Hit, _board.GetStatus( column, row ) );
+         Assert.AreEqual( ship.LifesLeft , result.LifesLeft );
+      }
+
+      [TestCase( 'A', 1, ExpectedResult = true )]
+      [TestCase( 'J', 10, ExpectedResult = true )]
+      [TestCase( 'A', 0, ExpectedResult = false )]
+      [TestCase( 'K', 5, ExpectedResult = false )]
+      [TestCase( 'B', 12, ExpectedResult = false )]
+      [TestCase( 'a', 1, ExpectedResult = false )]
+      [TestCase( 'A', -1, ExpectedResult = false )]
+      [TestCase( 'С', 2, ExpectedResult = false )]
+      public bool CheckCoordinates_ValidInputs_ReturnsCorrectResult( char column, int row )
+      {
+         // Act
+         bool result = (_board as IPlayerBoard).CheckCooridnates( column, row );
+
+         // Assert
+         return result;
       }
    }
 }

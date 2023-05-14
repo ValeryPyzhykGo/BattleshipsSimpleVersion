@@ -1,6 +1,6 @@
 ﻿namespace Battleships.Core
 {
-   public static class BattleshipsGameConstans
+   public static class BoardSize
    {
       public const int BoardSideSize = 10;
       public const int BoardFirstRowNumber = 1;

@@ -5,8 +5,14 @@ namespace Battleships.Core.AI
 {
    internal class AIPlayer : IAIPlayer
    {
-      private readonly RandomHelper _rand = new RandomHelper();
-      public (char, int) MakeMove( IOpponentBoard opponentBoard )
+      private readonly IRandomWrapper _rand;
+
+      internal AIPlayer( IRandomWrapper rand )
+      {
+         _rand = rand;
+      }
+
+      (char, int) IAIPlayer.MakeMove( IOpponentBoard opponentBoard )
       {
          var column = _rand.GetColumn();
          var row = _rand.GetRow();
@@ -17,7 +23,5 @@ namespace Battleships.Core.AI
          }
          return (column, row);
       }
-
-
    }
 }

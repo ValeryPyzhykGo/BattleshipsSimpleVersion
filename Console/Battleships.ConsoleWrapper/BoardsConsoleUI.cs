@@ -21,26 +21,26 @@ namespace Battleships.ConsoleWrapper
       void IBoardsConsoleUI.ShowBoards( IPlayerBoard playerBoard, IOpponentBoard opponentBoard )
       {
          _console.Write( "    " );
-         for ( var column = 0; column < BattleshipsGameConstans.BoardSideSize; column++ )
+         for ( var column = 0; column < BoardSize.BoardSideSize; column++ )
          {
-            _console.Write( $" {(char) ( BattleshipsGameConstans.FirstColumnLetter + column )} " );
+            _console.Write( $" {(char) ( BoardSize.FirstColumnLetter + column )} " );
          }
          _console.Write( "   " );
-         for ( var column = 0; column < BattleshipsGameConstans.BoardSideSize; column++ )
+         for ( var column = 0; column < BoardSize.BoardSideSize; column++ )
          {
-            _console.Write( $" {(char) ( BattleshipsGameConstans.FirstColumnLetter + column )} " );
+            _console.Write( $" {(char) ( BoardSize.FirstColumnLetter + column )} " );
          }
          _console.WriteLine( "   " );
-         for ( var row = BattleshipsGameConstans.BoardFirstRowNumber; row <= BattleshipsGameConstans.BoardLastRowNumber; row++ )
+         for ( var row = BoardSize.BoardFirstRowNumber; row <= BoardSize.BoardLastRowNumber; row++ )
          {
             var extraSpace = row < 10 ? " " : "";
             _console.Write( $" {extraSpace}{row} " );
-            for ( var column = BattleshipsGameConstans.FirstColumnLetter; column <= BattleshipsGameConstans.LastColumnLetter; column++ )
+            for ( var column = BoardSize.FirstColumnLetter; column <= BoardSize.LastColumnLetter; column++ )
             {
                _console.Write( $" {ShowPlayerCell( playerBoard, column, row )} " );
             }
             _console.Write( $"   " );
-            for ( var column = BattleshipsGameConstans.FirstColumnLetter; column <= BattleshipsGameConstans.LastColumnLetter; column++ )
+            for ( var column = BoardSize.FirstColumnLetter; column <= BoardSize.LastColumnLetter; column++ )
             {
                _console.Write( $" {ShowOponentCell( opponentBoard, column, row )} " );
             }

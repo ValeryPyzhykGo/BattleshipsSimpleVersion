@@ -4,12 +4,13 @@ using Battleships.Core.Exceptions;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo( "DynamicProxyGenAssembly2" )]
 [assembly: InternalsVisibleTo( "Batteships.Core.Tests" )]
 namespace Battleships.Core
 {
    public class BattleshipsGame : IBattleshipsGame
    {
-      private readonly RandomHelper _rand = new RandomHelper();
+      private readonly IRandomWrapper _rand;
       public IPlayerBoard PlayerBoard => _firstPlayerBoard;
       public IOpponentBoard OpponentBoard => _secondPlayerBoard;
 
@@ -24,14 +25,16 @@ namespace Battleships.Core
       {
          _firstPlayerBoard = new Board.Board();
          _secondPlayerBoard = new Board.Board();
-         _aIPlayer = new AIPlayer();
+         _rand = new RandomWrapper();
+         _aIPlayer = new AIPlayer( _rand );
          PlaceAllShipsRandomly();
       }
-      internal BattleshipsGame( IBoard firstUserBoard, IBoard secondPlaeyerBoard, IAIPlayer aIPlayer )
+      internal BattleshipsGame( IBoard firstUserBoard, IBoard secondPlaeyerBoard, IAIPlayer aIPlayer, IRandomWrapper rand )
       {
          _firstPlayerBoard = firstUserBoard;
          _secondPlayerBoard = secondPlaeyerBoard;
          _aIPlayer = aIPlayer;
+         _rand = rand;
          PlaceAllShipsRandomly();
       }
 

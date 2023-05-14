@@ -13,23 +13,23 @@ namespace Battleships.Core.Board
       public bool CheckCooridnates( char column, int row )
       {
          return
-            column >= BattleshipsGameConstans.FirstColumnLetter &&
-            column <= BattleshipsGameConstans.LastColumnLetter &&
-            row >= BattleshipsGameConstans.BoardFirstRowNumber &&
-            row <= BattleshipsGameConstans.BoardLastRowNumber;
+            column >= BoardSize.FirstColumnLetter &&
+            column <= BoardSize.LastColumnLetter &&
+            row >= BoardSize.BoardFirstRowNumber &&
+            row <= BoardSize.BoardLastRowNumber;
       }
       internal (int, int) ValidateAndConvertCoordinates( char column, int row )
       {
-         if ( column < BattleshipsGameConstans.FirstColumnLetter || column > BattleshipsGameConstans.LastColumnLetter )
+         if ( column < BoardSize.FirstColumnLetter || column > BoardSize.LastColumnLetter )
          {
             throw new ArgumentOutOfRangeException( $"Column symbol {column} is out of range." );
          }
-         if ( row < BattleshipsGameConstans.BoardFirstRowNumber || row > BattleshipsGameConstans.BoardLastRowNumber )
+         if ( row < BoardSize.BoardFirstRowNumber || row > BoardSize.BoardLastRowNumber )
          {
             throw new ArgumentOutOfRangeException( $"Row number {row} is out of range." );
          }
 
-         return (column - BattleshipsGameConstans.FirstColumnLetter, row - 1);
+         return (column - BoardSize.FirstColumnLetter, row - 1);
       }
       public CellStatus GetStatus( char column, int row )
       {
@@ -67,14 +67,14 @@ namespace Battleships.Core.Board
          var columnToCheck = columnConverted;
          var rowToCheck = rowConverted;
          var i = 0;
-         while ( i < length && columnToCheck < BattleshipsGameConstans.BoardSideSize && rowToCheck < BattleshipsGameConstans.BoardSideSize && _cells[columnToCheck, rowToCheck] == null )
+         while ( i < length && columnToCheck < BoardSize.BoardSideSize && rowToCheck < BoardSize.BoardSideSize && _cells[columnToCheck, rowToCheck] == null )
          {
             columnToCheck = isVertical ? columnToCheck : columnToCheck + 1;
             rowToCheck = isVertical ? rowToCheck + 1 : rowToCheck;
             i++;
          }
 
-         if ( columnToCheck == BattleshipsGameConstans.BoardSideSize || rowToCheck == BattleshipsGameConstans.BoardSideSize || _cells[columnToCheck, rowToCheck] != null )
+         if ( columnToCheck == BoardSize.BoardSideSize || rowToCheck == BoardSize.BoardSideSize || _cells[columnToCheck, rowToCheck] != null )
          {
             return false;
          }
@@ -97,7 +97,7 @@ namespace Battleships.Core.Board
 
       private bool CheckCoordinates( char column, int row )
       {
-         return column >= BattleshipsGameConstans.FirstColumnLetter && column <= BattleshipsGameConstans.LastColumnLetter && row > 0 && row <= BattleshipsGameConstans.BoardSideSize;
+         return column >= BoardSize.FirstColumnLetter && column <= BoardSize.LastColumnLetter && row > 0 && row <= BoardSize.BoardSideSize;
       }
 
       Ship IOpponentBoard.MakeMove( char column, int row )
@@ -122,5 +122,6 @@ namespace Battleships.Core.Board
 
          return cell.Ship;
       }
+
    }
 }
