@@ -22,7 +22,7 @@ namespace Battleships.Core
 
       internal bool GetBooleand()
       {
-         return _rand.Next( 0, 1 ) == 1 ;
+         return _rand.NextDouble() >= 0.5 ;
       }
    }
 }
