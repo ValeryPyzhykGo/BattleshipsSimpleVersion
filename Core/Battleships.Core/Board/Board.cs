@@ -74,7 +74,7 @@ namespace Battleships.Core.Board
             i++;
          }
 
-         if ( columnToCheck == BattleshipsGameConstans.BoardSideSize || columnToCheck == BattleshipsGameConstans.BoardSideSize || _cells[columnToCheck, rowToCheck] != null )
+         if ( columnToCheck == BattleshipsGameConstans.BoardSideSize || rowToCheck == BattleshipsGameConstans.BoardSideSize || _cells[columnToCheck, rowToCheck] != null )
          {
             return false;
          }
