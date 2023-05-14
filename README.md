@@ -7,8 +7,8 @@ For more detailed rules, you can refer to the [official Battleship game rules](h
 
 It is simplified version of the game:
 1. Ships are placed randomly
-2. Battleship (5 squares)
-3. Destroyers (4 squares)
+2. 1 x Battleship (5 squares)
+3. 2 x Destroyers (4 squares)
 
 ## How to run the game 
 
