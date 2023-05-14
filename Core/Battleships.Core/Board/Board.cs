@@ -67,7 +67,7 @@ namespace Battleships.Core.Board
          var columnToCheck = columnConverted;
          var rowToCheck = rowConverted;
          var i = 0;
-         while ( i < length && columnToCheck < BattleshipsGameConstans.BoardSideSize && columnToCheck < BattleshipsGameConstans.BoardSideSize && _cells[columnToCheck, rowToCheck] == null )
+         while ( i < length && columnToCheck < BattleshipsGameConstans.BoardSideSize && rowToCheck < BattleshipsGameConstans.BoardSideSize && _cells[columnToCheck, rowToCheck] == null )
          {
             columnToCheck = isVertical ? columnToCheck : columnToCheck + 1;
             rowToCheck = isVertical ? rowToCheck + 1 : rowToCheck;
