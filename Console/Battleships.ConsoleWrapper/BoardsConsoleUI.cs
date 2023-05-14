@@ -5,9 +5,9 @@ namespace Battleships.ConsoleWrapper
 {
    internal class BoardsConsoleUI : IBoardsConsoleUI
    {
-      private const char UndescoveredCellSymbol = '.';
-      private const char MissCellSymbol = 'O';
-      private const char HitCellSymbol = 'X';
+      private const char _undescoveredCellSymbol = '.';
+      private const char _missCellSymbol = 'O';
+      private const char _hitCellSymbol = 'X';
 
       private readonly IConsoleWraper _console;
       private readonly IBattleshipsConsoleGameMessages _messages;
@@ -57,24 +57,24 @@ namespace Battleships.ConsoleWrapper
          }
          if ( board.GetStatus( column, row ) == CellStatus.Undescovered )
          {
-            return UndescoveredCellSymbol;
+            return _undescoveredCellSymbol;
          }
          if ( board.GetStatus( column, row ) == CellStatus.Miss )
          {
-            return MissCellSymbol;
+            return _missCellSymbol;
          }
-         return HitCellSymbol;
+         return _hitCellSymbol;
       }
 
       private char ShowOponentCell( IOpponentBoard board, char column, int row )
       {
          if ( board.GetStatus( column, row ) == CellStatus.Undescovered )
          {
-            return UndescoveredCellSymbol;
+            return _undescoveredCellSymbol;
          }
          if ( board.GetStatus( column, row ) == CellStatus.Miss )
          {
-            return MissCellSymbol;
+            return _missCellSymbol;
          }
          return _messages.GetShipLetter( board.GetShipClass( column, row ).Value );
       }

@@ -3,7 +3,7 @@ using Battleships.ConsoleWrapper;
 
 namespace Battleships.ConsoleUI
 {
-   class Program
+   public class Program
    {
       public static void Main()
       {

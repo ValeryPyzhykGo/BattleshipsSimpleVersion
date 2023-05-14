@@ -40,7 +40,7 @@ namespace Battleships.ConsoleWrapper
                PlayGame(_gameSetUpFactory?.Create() ?? new BattleshipsGame()) ;
             } while ( AskBoolednQuestionWithRetry( _messages.WantToRestartMessage ) );
          }
-         catch (Exception e)
+         catch 
          {
             _console.WriteLine( _messages.GameIsBrokenMessage );
          }
