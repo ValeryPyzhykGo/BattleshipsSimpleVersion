@@ -49,16 +49,22 @@ namespace Battleships.ConsoleWrapper.Tests
          _consoleWrapperMock.Setup( x => x.ReadLine() ).Returns("A1");
       }
 
-      private void SetUpGameNotOverTimes( int times, Player winner )
+      private void SetUpGameNotOverTimes( int times, Player winner, int numberOfGames =  1)
       {
+         var timesToFromStart = times;
          _game.SetupGet( x => x.IsOver ).Returns( () => {
             times--;
             if ( times < 1 )
             {
-               _game.Setup( x => x.GetWinner() ).Returns(winner);
-               _consoleWrapperMock.Setup( x => x.ReadLine() ).Returns( "N" );
+               numberOfGames--;
+               _game.Setup( x => x.GetWinner() ).Returns( winner );
+               _consoleWrapperMock.SetupSequence( x => x.ReadLine() ).Returns( numberOfGames < 1 ? "N" : "Y" ).Returns("A1");
+
+               times = timesToFromStart;
+               return true;
             }
-            return times < 1;
+            _consoleWrapperMock.Setup( x => x.ReadLine() ).Returns( "A1" );
+            return false;
          } );
       }
 
@@ -76,7 +82,24 @@ namespace Battleships.ConsoleWrapper.Tests
       }
 
       [Test]
-      [TestCase( 0 )]
+      [TestCase( 1 )]
+      [TestCase( 5 )]
+      [TestCase( 10 )]
+      [TestCase( 100 )]
+      public void Start_WithDifferentRestartCount_ShouldFinishCorrectlyCorrectAmountOfTimes(int restarts)
+      {
+         // Arrange
+         SetUpGameNotOverTimes( 5, Player.Computer, restarts );
+
+         // Act
+         new BattleshipsConsoleGame( _battleshipsMessages.Object, _consoleWrapperMock.Object, _boardConsoleUI.Object, _factory.Object ).Start();
+
+         // Assert
+         AssertGameHasFinishedCorrectly( Times.Exactly( restarts ) );
+      }
+
+      [Test]
+      [TestCase( 1 )]
       [TestCase( 5 )]
       [TestCase( 10 )]
       [TestCase( 100 )]
@@ -91,8 +114,10 @@ namespace Battleships.ConsoleWrapper.Tests
 
          // Assert
          AssertGameHasFinishedCorrectly( Times.Once() );
+         _game.Verify( m => m.MakeMoveAndLetOppoentMove( It.IsAny<char>(), It.IsAny<int>() ), Times.Exactly( movesBeforeGameOver ) );
          _consoleWrapperMock.Verify(m => m.ReadLine(), Times.Exactly(movesBeforeGameOver + extraReadLinesToAskAboutNewGame ) );
          _boardConsoleUI.Verify( m => m.ShowBoards( _playerBoard.Object, _opponentBoard.Object ), Times.AtLeast(movesBeforeGameOver) );
+         
       }
 
       [Test]
@@ -112,11 +137,45 @@ namespace Battleships.ConsoleWrapper.Tests
          _battleshipsMessages.Verify( m => m.GetPlayerWinMessage( winner ), Times.Once() );
       }
 
+
+      [Test]
+      public void Start_WintGameExeption_ShouldShowAMessageAndNotThrowException()
+      {
+         // Arrange
+         SetUpGameNotOverTimes( 5, Player.Computer );
+         _game.Setup( m => m.MakeMoveAndLetOppoentMove( It.IsAny<char>(), It.IsAny<int>() ) ).Throws(new Exception());
+         // Act
+         new BattleshipsConsoleGame( _battleshipsMessages.Object, _consoleWrapperMock.Object, _boardConsoleUI.Object, _factory.Object ).Start();
+
+         // Assert
+         AssertGameHasFinishedWithError();
+      }
+
+      [Test]
+      public void Start_WintBoardExeption_ShouldShowAMessageAndNotThrowException()
+      {
+         // Arrange
+         SetUpGameNotOverTimes( 5, Player.Computer );
+         _playerBoard.Setup( m => m.CheckCooridnates( It.IsAny<char>(), It.IsAny<int>() ) ).Throws( new Exception() );
+         // Act
+         new BattleshipsConsoleGame( _battleshipsMessages.Object, _consoleWrapperMock.Object, _boardConsoleUI.Object, _factory.Object ).Start();
+
+         // Assert
+         AssertGameHasFinishedWithError();
+      }
+
+      private void AssertGameHasFinishedWithError(  )
+      {
+         _consoleWrapperMock.Verify( m => m.WriteLine( It.Is<string>( input => input == _gameIsBroken ) ), Times.Once() );
+         _consoleWrapperMock.Verify( m => m.WriteLine( It.Is<string>( input => input == _gameOverMessage ) ), Times.Never );
+         _consoleWrapperMock.Verify( m => m.WriteLine( It.Is<string>( input => input == _someoneWonMessage ) ), Times.Never );
+      }
       private void AssertGameHasFinishedCorrectly( Times times )
       {
          _consoleWrapperMock.Verify( m => m.WriteLine( It.Is<string>( input => input == _gameIsBroken ) ), Times.Never );
          _consoleWrapperMock.Verify( m => m.WriteLine( It.Is<string>( input => input == _gameOverMessage ) ), times );
          _consoleWrapperMock.Verify( m => m.WriteLine( It.Is<string>( input => input == _someoneWonMessage ) ), times );
+         _battleshipsMessages.VerifyGet( m => m.WantToRestartMessage, times);
       }
    }
 }
