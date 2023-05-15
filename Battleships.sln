@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleships.ConsoleWrapper.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{274B6C71-A95E-41E0-80A5-D0071FB0B018}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleships.ConsoleWrapper.Tests", "Console\Battleships.ConsoleWrapper.Tests\Battleships.ConsoleWrapper.Tests.csproj", "{0F859822-1358-4A77-8237-E196D0C43372}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5C1FDB2C-1FE4-4257-AE70-101A28D21B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C1FDB2C-1FE4-4257-AE70-101A28D21B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C1FDB2C-1FE4-4257-AE70-101A28D21B42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F859822-1358-4A77-8237-E196D0C43372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F859822-1358-4A77-8237-E196D0C43372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F859822-1358-4A77-8237-E196D0C43372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F859822-1358-4A77-8237-E196D0C43372}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{28F6A1B5-D184-4A1B-8B49-FCB8515A8731} = {A53AE35E-82E8-4D58-88F4-AFEE3146D82F}
 		{5C1FDB2C-1FE4-4257-AE70-101A28D21B42} = {274B6C71-A95E-41E0-80A5-D0071FB0B018}
 		{274B6C71-A95E-41E0-80A5-D0071FB0B018} = {A53AE35E-82E8-4D58-88F4-AFEE3146D82F}
+		{0F859822-1358-4A77-8237-E196D0C43372} = {274B6C71-A95E-41E0-80A5-D0071FB0B018}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4C9E891-B627-4418-960C-1A953D06E6F1}

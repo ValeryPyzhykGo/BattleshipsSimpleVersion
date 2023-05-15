@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo( "DynamicProxyGenAssembly2" )]
 [assembly: InternalsVisibleTo( "Battleships.ConsoleWrapper.E2ETests" )]
-[assembly: InternalsVisibleTo( "Battleships.ConsoleWrapper.UnitTests" )]
+[assembly: InternalsVisibleTo( "Battleships.ConsoleWrapper.Tests" )]
 namespace Battleships.ConsoleWrapper
 {
    public class BattleshipsConsoleGame

@@ -10,13 +10,13 @@ namespace Battleships.ConsoleWrapper
             { ShipClass.Destroyer,  'D' },
         };
 
-      public string TryAgainMessage => "Please, try again!";
+      public string TryAgainMessage => "Please try again!";
       public string GameIsBrokenMessage => "Sorry, the game has crushed.";
       public string TryAgainYesNoQuestionMessage => "Enter Y for yes or N for not";
       public char YesAnswer => 'Y';
       public char NoAnswer => 'N';
       public string WantToRestartMessage => "Do you want to start a new game? (Y/N)";
-      public string EnterCoordinates => "Please, enter coordinates!";
+      public string EnterCoordinates => "Please enter coordinates!";
       public string CoordinatesAreInvalid => "The cordinates are incorrect!";
       public string GameOver => "Game Over!";
       public string UserName => "You";
