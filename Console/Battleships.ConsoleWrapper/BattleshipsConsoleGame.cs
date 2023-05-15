@@ -60,9 +60,12 @@ namespace Battleships.ConsoleWrapper
             (playerMoveResult, aiMoveResult) = MakeMoveWithRetryInCaseOfBadMove( game );
          }
 
+         _console.Clear();
+         _boardsUI.ShowBoards( game.PlayerBoard, game.OpponentBoard );
          _console.WriteLine( _messages.GameOver );
          _console.WriteLine( _messages.GetPlayerWinMessage( game.GetWinner().Value ) );
       }
+
 
       private (Ship, Ship) MakeMoveWithRetryInCaseOfBadMove( IBattleshipsGame game )
       {
