@@ -6,11 +6,8 @@ namespace Battleships.ConsoleWrapper
    public class BattleshipsConsoleGameMessagesEng : IBattleshipsConsoleGameMessages
    {
       private static readonly Dictionary<ShipClass, char> _shipLetters = new Dictionary<ShipClass, char> {
-            { ShipClass.Carrier,    'C' },
             { ShipClass.Battleship, 'B' },
             { ShipClass.Destroyer,  'D' },
-            { ShipClass.Submarine,  'S' },
-            { ShipClass.Cruiser,    'R' }
         };
 
       public string TryAgainMessage => "Please, try again!";

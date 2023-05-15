@@ -39,7 +39,7 @@ namespace Battleships.Core.Tests
       public void Hit_WhenShipIsSunk_ShouldThrowException()
       {
          // Arrange
-         var ship = new Ship( ShipClass.Submarine );
+         var ship = new Ship( ShipClass.Battleship );
          while ( ship.LifesLeft > 0 )
          {
             ship.Hit();
@@ -53,8 +53,8 @@ namespace Battleships.Core.Tests
       public void GetShipLength_WhenValidShipClass_ShouldReturnCorrectLength()
       {
          // Arrange
-         var shipClass = ShipClass.Carrier;
-         var expectedLength = 5;
+         var shipClass = ShipClass.Destroyer;
+         var expectedLength = 3;
 
          // Act
          var length = Ship.GetShipLength( shipClass );
@@ -77,7 +77,7 @@ namespace Battleships.Core.Tests
       public void GetShipLength_WithoutSpecifyingShipClass_ShouldReturnShipClassLength()
       {
          // Arrange
-         var shipClass = ShipClass.Cruiser;
+         var shipClass = ShipClass.Battleship;
          var ship = new Ship( shipClass );
 
          // Act

@@ -29,11 +29,8 @@ namespace Battleships.Core
       }
 
       private static readonly Dictionary<ShipClass, int> _shipsLength = new Dictionary<ShipClass, int> {
-            { ShipClass.Carrier,    5 },
             { ShipClass.Battleship, 4 },
             { ShipClass.Destroyer,  3 },
-            { ShipClass.Submarine,  3 },
-            { ShipClass.Cruiser,    2 }
         };
       public static int GetShipLength( ShipClass shipClass )
       {

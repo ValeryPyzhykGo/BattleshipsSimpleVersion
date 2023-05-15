@@ -213,7 +213,7 @@ namespace Battleships.Core.Tests
          int row = 1;
          bool isVertical = false;
          var ship1 = new Ship( ShipClass.Battleship );
-         var ship2 = new Ship( ShipClass.Carrier );
+         var ship2 = new Ship( ShipClass.Destroyer );
 
          _board.TryPlaceShip( column, row, isVertical, ship1 ); // Place first ship
 
