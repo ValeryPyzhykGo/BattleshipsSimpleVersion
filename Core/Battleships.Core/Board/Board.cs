@@ -6,10 +6,8 @@ namespace Battleships.Core.Board
 {
    internal class Board : IBoard
    {
-      private readonly Ship[] _ships = new Ship[5];
       private readonly Cell[,] _cells = new Cell[10, 10];
       public int LifesLeft { get; private set; } = 0;
-
       public bool CheckCooridnates( char column, int row )
       {
          return
@@ -91,7 +89,6 @@ namespace Battleships.Core.Board
             }
          }
          LifesLeft += ship.LifesLeft;
-         _ships[(int) ship.ShipClass] = ship;
          return true;
       }
 
