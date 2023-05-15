@@ -6,9 +6,9 @@ The Battleships Game repository is a C# implementation of the classic board game
 For more detailed rules, you can refer to the [official Battleship game rules](https://www.hasbro.com/common/instruct/Battleship.PDF).
 
 It is simplified version of the game:
-    - Ships are placed randomly
-    - 1x Battleship (5 squares)
-    - 2x Destroyers (4 squares)
+1. Ships are placed randomly
+2. 1 x Battleship (5 squares)
+3. 2 x Destroyers (4 squares)
 
 ## How to run the game 
 
